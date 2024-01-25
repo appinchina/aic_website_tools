@@ -1,0 +1,103 @@
+.keypoints_list{
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    overflow: hidden; */
+    /* listStyleType: 'none',
+    paddingLeft: '0',
+    textAlign: 'left',
+    fontSize: '1rem',
+    lineHeight: '1.5rem', */
+    width: 100%;
+    /* list-style-type: none; */
+    padding-left: 0;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-left: 20px;
+}
+
+.keypoints_list li{
+    /* width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd; */
+    width: 100%;
+    padding-top: 20px;
+    font-size: 18px;
+}
+  
+.keyPointsBlock {
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    padding: 34px 68px 60px 60px;
+    text-align: center;
+    width: 100%;
+    /* margin: auto auto 20px; */
+    display: flex;
+    justify-content: center;
+}
+  
+.keyPointsBlock .keyPointsText h2 {
+    font-size: 1.7rem;
+    margin-bottom: 0px;
+    text-align: left;
+}
+  
+.keyPointsBlock .keyPointsText .gradientText {
+    font-size: 1.7rem;
+    font-weight: 600;
+    background: -webkit-linear-gradient(135deg, #ADCF2C, #5A946C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+  
+.keyPointsBlock .keyPointsText {
+    /* text-wrap: balance; */
+    text-align: center;
+    font-size: 1rem;
+    max-width: 60ch;
+    width: 100%;
+}
+  
+.keyPointsText .bold {
+    font-weight: 600;
+}
+  
+@media (max-width: 500px) {
+    .container .imageContainer {
+      height: 25vh;
+    }
+  
+    .container .textContainer {
+      width: 100%;
+    }
+  
+    .keyPointsBlock {
+      background-color: rgb(245, 245, 245);
+      border-radius: 5px;
+      padding: 15px 20px 45px;
+      text-align: center;
+      font-size: 1rem;
+      width: 100%;
+      margin: auto auto 20px;
+      display: flex;
+      justify-content: center;
+    }
+  
+    .keyPointsBlock .keyPointsText {
+      text-align: center;
+      font-size: 1rem;
+      max-width: 60ch;
+    }
+}
+  

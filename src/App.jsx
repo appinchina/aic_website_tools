@@ -82,16 +82,17 @@ function App() {
     let htmlString = `
     <!-- THIS IS A CUSTOM CTA -->
     <div class="ctaBox">
-    <div class="ctaText">
-      <h2>
-        ${header}
-      </h2>
-        ${formatStringToHTML(content)}
-      <br></br>
-      <div class="ctaButtoncontainer">
-        <a href="/get-started/?ref=inline-cta-button" class="greenCtaButton">
-          ${buttonLabel}
-        </a>
+      <div class="ctaText">
+        <h2>
+          ${header}
+        </h2>
+          ${formatStringToHTML(content)}
+        <br></br>
+        <div class="ctaButtoncontainer">
+          <a href="/get-started/?ref=inline-cta-button" class="greenCtaButton">
+            ${buttonLabel}
+          </a>
+        </div>
       </div>
     </div>
     `

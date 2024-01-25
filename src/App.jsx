@@ -72,11 +72,11 @@ function App() {
 
   async function printCTAHTML(){
     const formatStringToHTML = (str) => {
-      const formattedStr = str.replace(/#(\*\*\*)/g, '<b>');
-      const finalStr = formattedStr.replace(/(\*\*\*)#/g, '</b>');
+      const formattedStr = str.replace(/#(\*\*\*)/g, '<span class="bold">');
+      const finalStr = formattedStr.replace(/(\*\*\*)#/g, '</span>');
 
       // Wrap the entire string in <p> tags
-      return `<p  ${finalStr}/>`;
+      return `${finalStr}`;
     };
 
     let htmlString = `

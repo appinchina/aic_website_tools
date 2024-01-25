@@ -70,7 +70,7 @@ function App() {
   //   </div>
   // </div>
 
-  function printCTAHTML(){
+  async function printCTAHTML(){
     const formatStringToHTML = (str) => {
       const formattedStr = str.replace(/#(\*\*\*)/g, '<b>');
       const finalStr = formattedStr.replace(/(\*\*\*)#/g, '</b>');
@@ -97,18 +97,24 @@ function App() {
     `
 
     // Copy the HTML code to the clipboard
-    navigator.clipboard.writeText(htmlString)
+    try {
+      await navigator.clipboard.writeText(htmlString)
+      console.log("Copied to clipboard");
+
+    } catch (error) {
+      console.error(error.message);
+    }
     // alert('The HTML code has been copied to the clipboard!')
-    alert('The HTML code has been copied to the clipboard!')
     console.log(htmlString)
   }
 
-  <div class="ctaButtoncontainer">
-      <a href="/get-started/?ref=inline-cta-button" class="greenCtaButton">
-        Book Your Free Call
-      </a>
-    </div>
-
+  async function writeClipboardText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   return (
     <>

@@ -1,5 +1,8 @@
 import React, {useRef, useState} from 'react'
 import './styles.css'
+import { use } from 'react'
+
+const defaultInputString = "<k>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio vitae eros ultricies aliquam. #***Donec euismod, nisl eget aliqu am aliquet***#, nunc nisl aliquam nunc, quis aliquam nisl nunc eu nisl.</k> \n <k>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio vitae eros ultricies aliquam. #***Donec euismod, nisl eget aliqu am aliquet***#, nunc nisl aliquam nunc, quis aliquam nisl nunc eu nisl.</k>"
 
 function KeyPointsBlock() {
     const headerRef = useRef()
@@ -7,9 +10,8 @@ function KeyPointsBlock() {
 
     const contentRef = useRef()
 
-    // state variables for the CTA block
-    const [header, setHeader] = useState('Keypoints')
-    const [content, setContent] = useState("")
+    const [header, setHeader] = useState('Placeholder Header')
+    const [content, setContent] = useState(defaultInputString)
     // const [keypoints, setKeypoints] = useState([])
     function getKeypoints(){
         const formatStringToHTML = (str) => {
@@ -20,7 +22,7 @@ function KeyPointsBlock() {
             return `${finalStr}`;
         };
 
-        const str = contentRef.current?.value
+        const str = content
         const regex = /<k>(.*?)<\/k>/g;
         const keypoints = [];
         let match;
@@ -35,17 +37,24 @@ function KeyPointsBlock() {
     const [buttonLabel, setButtonLabel] = useState('Button Label Placeholder')
 
     function handleInputsChange(){
-        setHeader(headerRef.current?.value)
-        setContent(contentRef.current?.value)
-        setButtonLabel(buttonLabelRef.current?.value)
+        const trimmedHeader = headerRef.current?.value.trim()
+        const trimmedContent = contentRef.current?.value.trim()
 
-        if(headerRef.current?.value === '') setHeader('Keypoints')
-        if(buttonLabelRef.current?.value === '') setButtonLabel('Button Label Placeholder')
+        if(headerRef.current?.value === '') {
+            setHeader('Placeholder Header')
+        } else {
+            setHeader(trimmedHeader)
+        }
+        
+        if(contentRef.current?.value === "") {
+            setContent(defaultInputString)
+        } else {
+            setContent(trimmedContent)
+        }
     }
 
     const FormattedListItem = (originalString, idx) => {
-
-        if(!originalString) originalString = "<k>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio vitae eros ultricies aliquam. #***Donec euismod, nisl eget aliquam aliquet***#, nunc nisl aliquam nunc, quis aliquam nisl nunc eu nisl.</k>"
+        let trimmedString = originalString.trim();
 
         function extractKeyPoints(inputString) {
             const regex = /<k>(.*?)<\/k>/g;
@@ -56,7 +65,7 @@ function KeyPointsBlock() {
             }
         }
 
-        extractKeyPoints(originalString)
+        extractKeyPoints(trimmedString)
 
         const formatStringToHTML = (str) => {
             const formattedStr = str.replace(/#(\*\*\*)/g, '<b>');
@@ -66,8 +75,7 @@ function KeyPointsBlock() {
             return <li key={idx} className="keypoint" dangerouslySetInnerHTML={{ __html: finalStr }} />;
         };
 
-        return formatStringToHTML(originalString);
-        // return (<div>Empty</div>)
+        return formatStringToHTML(trimmedString);
     };
 
     // A function to capitalize the first letter of each word in a string
@@ -120,6 +128,12 @@ function KeyPointsBlock() {
         console.log(htmlString)
     }
 
+    // An effect to run when the component mounts
+    // useEffect(() => {
+    //     // Set the header input value to 'Keypoints'
+    //     handleInputsChange()
+    // }, [])
+
     return (
         <div
             style={{
@@ -142,19 +156,19 @@ function KeyPointsBlock() {
                 }}
             >
                 {/* Inputs */}
-                <label htmlFor="cta_header">Header</label>
+                <label htmlFor="keypoints_header">Header</label>
                 <textarea 
                     style={{
                     height: '60px',
                     width: '100%',
                     resize: 'none',
                     }}
-                    id="cta_header" type="text" placeholder="Type here" 
+                    id="keypoints_header" type="text" placeholder="Type here" 
                     ref={headerRef} 
                     onChange={() => handleInputsChange()}
                 />
 
-                <label htmlFor="cta_content">Content</label>
+                <label htmlFor="keypoints_content">Content</label>
                 <div
                     style={{
                     fontSize: '0.8rem',
@@ -165,14 +179,25 @@ function KeyPointsBlock() {
                     padding: '0.5rem',
                     }}
                 >
-                    <>You can add bold text by using the markers "#***" and "***#". </>
-                    <br></br>
-                    <br></br>
-                    <>
-                    <span style={{fontWeight:"600"}}>Example:</span> 
-                    <br></br>
-                    This is a short example with a #***bold***# text.
-                    </>
+                    <p>Use the following format to add key points:</p>
+
+                    <p>
+                    &lt;k&gt;Key point goes here&lt;/k&gt;
+                    </p>
+                    <p>
+                    &lt;k&gt;Another key point goes here&lt;/k&gt;
+                    </p>
+
+                    <p>
+                    <b>Example:</b>
+                    </p>
+                    <p>
+                    &lt;k&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio vitae eros ultricies aliquam. #***Donec euismod, nisl eget aliqu am aliquet***#, nunc nisl aliquam nunc, quis aliquam nisl nunc eu nisl.&lt;/k&gt;
+                    </p>
+
+                    <p>
+                    &lt;k&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio vitae eros ultricies aliquam. #***Donec euismod, nisl eget aliqu am aliquet***#, nunc nisl aliquam nunc, quis aliquam nisl nunc eu nisl.&lt;/k&gt;
+                    </p>
                 </div>
                 <textarea 
                     style={{
@@ -180,9 +205,10 @@ function KeyPointsBlock() {
                     width: '100%',
                     resize: 'none',
                     }}
-                    id="cta_content" type="textArea" placeholder="Type here" 
+                    id="keypoints_content" type="textArea"
                     ref={contentRef}
                     onChange={() => handleInputsChange()}
+                    placeholder={"Type your list of key points here. \n"}
                 />
             </div>
 
@@ -195,7 +221,7 @@ function KeyPointsBlock() {
                 margin: '0 auto',
             }}
             >
-            {/* A preview of the CTA block */}
+
             <div
                 className='keyPointsBlock'
             >
@@ -216,19 +242,19 @@ function KeyPointsBlock() {
             <button 
                 className="copy_cta_html"
                 style={{
-                marginTop: "30px",
-                backgroundColor: '#00bfa6',
-                padding: '0.5rem 1rem',
-                borderRadius: '0.5rem',
-                border: 'none',
-                cursor: 'pointer',
-                height: 'fit-content',
-                width: 'fit-content',
-                color: "white !important",
+                    marginTop: "30px",
+                    backgroundColor: '#00bfa6',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '0.5rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    height: 'fit-content',
+                    width: 'fit-content',
+                    color: "white !important",
                 }}
             
             onClick={() => printKeyPointsHTML()}>
-                Copy CTA HTML
+                Copy Block HTML
             </button>
             </div>
 

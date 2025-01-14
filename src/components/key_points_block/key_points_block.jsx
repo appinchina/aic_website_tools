@@ -243,7 +243,7 @@ function KeyPointsBlock() {
                 className="copy_cta_html"
                 style={{
                     marginTop: "30px",
-                    backgroundColor: '#00bfa6',
+                    backgroundColor: '#2f322a',
                     padding: '0.5rem 1rem',
                     borderRadius: '0.5rem',
                     border: 'none',

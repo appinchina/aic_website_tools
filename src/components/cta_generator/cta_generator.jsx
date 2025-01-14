@@ -58,40 +58,66 @@ function CTA_Generator() {
         return `${url}${separator}${refParameter}&${ctaIdParameter}`;
     }
 
+    let baseHtmlString = `
+    <!-- THIS IS A CUSTOM CTA -->
+    <div class="ctaBox">
+        <div class="ctaText">
+            <h2>
+            ${formatHeaderToHTML(header)}
+            </h2>
 
-    async function printCTAHTML(){
-        let htmlString = `
-        <!-- THIS IS A CUSTOM CTA -->
-        <div class="ctaBox">
-            <div class="ctaText">
-                <h2>
-                ${formatHeaderToHTML(header)}
-                </h2>
+            <p>
+                ${formatContentToHTML(content)}
+            </p>
 
-                <p>
-                    ${formatContentToHTML(content)}
-                </p>
-
-                <div class="ctaButtoncontainer">
-                    <a href="${targetUrlWithRefParameters("/get-started/")}" class="greenCtaButton">
-                        ${buttonLabel}
-                    </a>
-                </div>
+            <div class="ctaButtoncontainer">
+                <a href="${targetUrlWithRefParameters("/get-started/")}" class="greenCtaButton">
+                    ${buttonLabel}
+                </a>
             </div>
         </div>
-        `
+    </div>
+    `
 
+    function getHtmlString(){
+let htmlString = `
+<!-- THIS IS A CUSTOM CTA -->
+<div class="ctaBox">
+    <div class="ctaText">
+        <h2>
+        ${formatHeaderToHTML(header)}
+        </h2>
+
+        <p>
+        ${formatContentToHTML(content)}
+        </p>
+
+        <div class="ctaButtoncontainer">
+            <a href="${targetUrlWithRefParameters("/get-started/")}" class="greenCtaButton">
+                ${buttonLabel}
+            </a>
+        </div>
+    </div>
+</div>
+`
+        return htmlString
+    }
+
+    async function copyStringToClipboard(string){
         // Copy the HTML code to the clipboard
         try {
-            await navigator.clipboard.writeText(htmlString)
+            await navigator.clipboard.writeText(string)
             alert("Copied to clipboard")
 
         } catch (error) {
             console.error(error.message);
             alert("Failed to copy to clipboard")
         }
-        // alert('The HTML code has been copied to the clipboard!')
-        console.log(htmlString)
+    }
+
+    async function copyCtaHtmlToClipboard(){
+        const htmlString = getHtmlString()
+        await copyStringToClipboard(htmlString)
     }
 
     const FormattedHeader = (originalString) => {
@@ -136,7 +162,7 @@ function CTA_Generator() {
             display: 'flex',
             flexDirection: 'row',
             gap: '1rem',
-            width: '1000px',
+            width: "fit-content",
             margin: '0 auto',
             }}
         >
@@ -234,53 +260,88 @@ function CTA_Generator() {
             </div>
 
             <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem',
-                width: '600px',
-                margin: '0 auto',
-            }}
-            >
-            {/* A preview of the CTA block */}
-            <div
-                className='ctaBox'
-            >
-                <div className='ctaText'>
-                
-                {FormattedHeader(header)}
-                
-                {FormattedContent(content)}
-               
-                <div className='ctaButtoncontainer'>
-                    <a 
-                        className='greenCtaButton'
-                        href={targetUrlWithRefParameters("https://appinchina.co/get-started/")}
-                    >
-                    {
-                        buttonLabel
-                    }
-                    </a>
-                </div>
-                </div>
-            </div>
-            <button 
-                className="copy_cta_html"
                 style={{
-                marginTop: "30px",
-                backgroundColor: '#00bfa6',
-                padding: '0.5rem 1rem',
-                borderRadius: '0.5rem',
-                border: 'none',
-                cursor: 'pointer',
-                height: 'fit-content',
-                width: 'fit-content',
-                color: "white !important",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    width: '690px',
+                    margin: '0 auto',
+                    paddingRight: '5rem',
+                    textAlign: 'left',
                 }}
-            
-            onClick={() => printCTAHTML()}>
-                Copy CTA HTML
-            </button>
+            >
+                <div
+                    style={{
+                        width: '690px !important',
+                    }}
+                >
+                    {/* A preview of the CTA block */}
+                    <div
+                        className='ctaBox'
+                    >
+                        <div className='ctaText'>
+                        
+                        {FormattedHeader(header)}
+                        
+                        {FormattedContent(content)}
+                    
+                        <div className='ctaButtoncontainer'>
+                            <a 
+                                className='greenCtaButton'
+                                href={targetUrlWithRefParameters("https://appinchina.co/get-started/")}
+                            >
+                            {
+                                buttonLabel
+                            }
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                {/* A text area displaying the generated HTML */}
+                <div
+                    style={{
+                        width: '690px',
+                        marginTop: "32px",
+                    }}
+                >
+                    <div 
+                        htmlFor="cta_html"
+                        style={{
+                            marginBottom: "12px",
+                        }}
+                    >Generated HTML</div>
+                    <textarea 
+                        style={{
+                        height: '200px',
+                        width: "660px",
+                        resize: 'none',
+                        padding: '15px',
+                        }}
+                        id="cta_html" type="textArea" 
+                        value={getHtmlString()}
+                    />
+
+                    <button 
+                        className="copy_cta_html"
+                        style={{
+                        marginTop: "30px",
+                        backgroundColor: "#2f322a",
+                        padding: '0.5rem 1rem',
+                        borderRadius: '0.5rem',
+                        border: 'none',
+                        cursor: 'pointer',
+                        height: 'fit-content',
+                        width: 'fit-content',
+                        color: "white !important",
+                        }}
+                    
+                    onClick={() => copyCtaHtmlToClipboard()}>
+                        Copy CTA HTML
+                    </button>
+                </div>
             </div>
 
         </div>

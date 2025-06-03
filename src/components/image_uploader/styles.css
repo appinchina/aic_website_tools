@@ -59,7 +59,22 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.uploader-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.uploader-btn-loading {
+  background-color: #666;
+  cursor: wait;
+}
+
+.uploader-btn-loading:hover {
+  background-color: #666;
 }
 
 .uploader-btn:hover {

@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import CTA_Generator from './components/cta_generator/cta_generator'
 import KeyPointsBlock from './components/key_points_block/key_points_block'
+import ImageUploader from './components/image_uploader/image_uploader'
 
 function App() {
 
@@ -29,9 +30,14 @@ function App() {
           className={`NavOption ${selectedTool === 'key_points_block' && 'selected'}`}
           onClick={() => setSelectedTool('key_points_block')}
         >Key Points Block</div>
+        <div 
+          className={`NavOption ${selectedTool === 'image_uploader' && 'selected'}`}
+          onClick={() => setSelectedTool('image_uploader')}
+        >Image Uploader</div>
       </div>
       {selectedTool === 'cta_generator' && <CTA_Generator />}
       {selectedTool === 'key_points_block' && <KeyPointsBlock />}
+      {selectedTool === 'image_uploader' && <ImageUploader />}
     </>
   )
 }
